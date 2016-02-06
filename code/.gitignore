@@ -1,0 +1,8 @@
+.env/
+tmp/
+db_repository/
+migrations/
+app.db
+*.pyc
+app/static/.webassets-cache/*
+app/static/uploads/

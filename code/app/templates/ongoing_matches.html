@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Ongoing Matches | Score@Dailypakistan{% endblock %}
+
+{% block content %}
+	<header id="header" class="ongoing_matches">
+		<h1>Ongoing Matches</h1>
+	</header><!-- /header -->
+	{% for match in matches %}
+	<article class="match">
+		<h3><a href="{{ url_for('match', mid=match.mid) }}">
+			{% for team in match.teams %}
+				{% if loop.index == 1 %}
+					<img src="{{team.flag.roundsmall}}" alt="">
+				{% endif %}
+					{{team.fn}}
+					{% if loop.index == 1 %}
+						<strong>vs</strong>
+					{% endif %}
+				{% if loop.index == 2 %}
+					<img src="{{team.flag.roundsmall}}" alt="">
+				{% endif %}
+			{% endfor %}
+		</a></h3>
+		<div class="pull-right">
+			<button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#embed{{match.mid}}"><></button>
+			<div class="modal fade" id="embed{{match.mid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      </div>
+			      <div class="modal-body">
+			        <textarea rows="5" style="width:100%"><iframe style="width:100%;" height="550" src="http://score.dailypakistan.com.pk/match/{{match.mid}}" frameborder="0"></iframe></textarea>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</article>
+	{% endfor %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#embed">Embed</button>
+<div class="modal fade" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <textarea rows="5" style="width:100%">{{'<iframe style="width:100%;" height="260" src="http://score.dailypakistan.com.pk/ongoing_matches" frameborder="0"></iframe>'}}</textarea>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
