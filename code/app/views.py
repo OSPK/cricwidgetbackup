@@ -131,6 +131,11 @@ def index():
     return appify('index.html', links=links)
 
 
+@app.route("/psl")
+def psl():
+    return render_template(psl.html)
+
+
 @cache.cached(timeout=5)
 @app.route("/ongoin_series")
 def ongoing_series():

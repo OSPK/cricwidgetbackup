@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>PSL Live Score</title>
+
+		<!-- Bootstrap CSS -->
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<style type="text/css" media="screen">
+			#title {
+				background: #168416;
+				color:white;
+				padding:10px;
+			}
+			#match_status {
+				background: #BB4343;
+				color:white;
+				padding:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row text-center">
+				<h1 id="title"></h1>
+				<div><span id="toss"></span> Won the toss and elected to <span id="toss_decision"></span>.</div>
+				<h3 id="match_status"></h3>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="//code.jquery.com/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript">
+		function loadScoreboard(){
+		  $.get( "http://psl-scoring.azurewebsites.net/", function( data ) {
+				var scoreboard = data.scoreboard;
+				var teamA = scoreboard.TeamAName;
+				var teamB = scoreboard.TeamBName;
+				var toss_won = scoreboard.toss.wonBy;
+				if (scoreboard.toss.wonAction.Batting == true ) {
+					var toss_decision = "Bat";
+				} else{
+					var toss_decision = "Bowl";
+				};
+				var match_status = data.match_status;
+
+				if (toss_won == "TeamA") {
+					toss_won = teamA;
+				} else{
+					toss_won = teamB;
+				};
+
+			$( "#title" ).html( teamA + " vs " + teamB );
+			$( "#match_status" ).html( match_status );
+			$( "#toss" ).html( toss_won );
+			$( "#toss_decision" ).html( toss_decision );
+			  
+			    
+			}, "json" );
+		}
+		$( document ).ready(function() {
+		    loadScoreboard();
+		});
+		setInterval(function(){loadScoreboard()}, 5000);
+		</script>
+	</body>
+</html>
