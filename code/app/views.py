@@ -133,7 +133,7 @@ def index():
 
 @app.route("/psl")
 def psl():
-    return render_template(psl.html)
+    return render_template("psl.html")
 
 
 @cache.cached(timeout=5)
