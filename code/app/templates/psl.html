@@ -114,7 +114,8 @@
 				teamB = scoreboard.TeamBName;
 				
 				if (typeof(scoreboard.toss) === 'undefined') {
-					$(".toss, #match_status, .score, .scorecard").hide();
+					$(".toss, #match_status, .score").hide();
+					return;
 				} else {
 					toss_won = scoreboard.toss.wonBy;
 				};
