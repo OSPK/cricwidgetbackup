@@ -60,6 +60,7 @@
 				text-align: right;
 				background: #212121;
 				color: #efeffe;
+				padding-top: 10px;
 			}
 			.scorecard.two {
 				text-align: left;
@@ -83,22 +84,20 @@
 				<h1 id="title">Waiting for match to begin</h1>
 				<div class="toss"><span id="toss"></span> Won the toss and elected to <span id="toss_decision"></span>.</div>
 				<h5 id="match_status"></h5>
-				<div class="score">
-					<div id="scorediv2">
-						<span class="team2name team"></span> &nbsp;<span class="scr" id="score2"></span> (<span id="overs2"></span>)
-					</div>
-					<div id="scorediv1">
-						<span class="team1name team"></span> &nbsp;<span class="scr" id="score1"></span> (<span id="overs1"></span>)
-					</div>
-				</div>
 				<div class="container-fluid">
 					<div class="col-md-6 col-sm-6 col-xs-6 scorecard">
-						<h3 class="team1name"></h3>
+						<span class="team1name h3"></span>
+						<span id="scorediv1">
+							&nbsp;<span class="scr" id="score1"></span> (<span id="overs1"></span>)
+						</span>
 						<div id="scorecard1"></div>
 						<br>
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6 scorecard two">
-						<h3 class="team2name"></h3>
+						<span class="team2name h3"></span>
+						<span id="scorediv2">
+							&nbsp;<span class="scr" id="score2"></span> (<span id="overs2"></span>)
+						</span>
 						<div id="scorecard2"></div>
 						<br>
 					</div>
