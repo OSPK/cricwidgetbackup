@@ -56,6 +56,22 @@
 				background-color: black;
 				color: white;
 			}
+			.scorecard {
+				text-align: right;
+				background: #212121;
+				color: #efeffe;
+			}
+			.scorecard.two {
+				text-align: left;
+				background: #232333;
+			}
+			.out {
+				color: #999;
+			}
+			hr {
+				margin-top:5px;
+				margin-bottom: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -69,10 +85,22 @@
 				<h5 id="match_status"></h5>
 				<div class="score">
 					<div id="scorediv2">
-						<span class="team" id="team2"></span> &nbsp;<span class="scr" id="score2"></span> (<span id="overs2"></span>)
+						<span class="team2name team"></span> &nbsp;<span class="scr" id="score2"></span> (<span id="overs2"></span>)
 					</div>
 					<div id="scorediv1">
-						<span class="team" id="team1"></span> &nbsp;<span class="scr" id="score1"></span> (<span id="overs1"></span>)
+						<span class="team1name team"></span> &nbsp;<span class="scr" id="score1"></span> (<span id="overs1"></span>)
+					</div>
+				</div>
+				<div class="container-fluid">
+					<div class="col-md-6 scorecard">
+						<h3 class="team1name"></h3>
+						<div id="scorecard1"></div>
+						<br>
+					</div>
+					<div class="col-md-6 scorecard two">
+						<h3 class="team2name"></h3>
+						<div id="scorecard2"></div>
+						<br>
 					</div>
 				</div>
 			</div>
@@ -86,7 +114,7 @@
 		<script type="text/javascript">
 		var scoreboard, teamA, teamB, toss_won, toss_decision, match_status, team1, team2;
 		function loadScoreboard(){
-		  $.get( "http://psl-scoring.azurewebsites.net/", function( data ) {
+		  $.get( "test.json", function( data ) { //http://psl-scoring.azurewebsites.net/
 				scoreboard = data.scoreboard;
 				window.match = scoreboard;
 				teamA = scoreboard.TeamAName;
@@ -94,11 +122,11 @@
 				toss_won = scoreboard.toss.wonBy;
 				if (scoreboard.toss.wonAction.Batting == true ) {
 					toss_decision = "Bat";
-					if (toss_won == teamA) {team1 = teamA;team2=teamB;}
+					if (toss_won == 'teamA') {team1 = teamA;team2=teamB;}
 					else {team1 = teamB;team2=teamA;};
 				} else{
 					toss_decision = "Bowl";
-					if (toss_won == teamA) {team2 = teamA;team1=teamB;}
+					if (toss_won == 'teamA') {team1 = teamB;team2=teamA;}
 					else {team1 = teamA;team2=teamB;};
 				};
 				
@@ -111,22 +139,50 @@
 					toss_won = teamB;
 				};
 
-			$( "#title" ).html( teamA + " vs " + teamB );
-			$( "#match_status" ).html( match_status );
-			$( "#toss" ).html( toss_won );
-			$( "#toss_decision" ).html( toss_decision );
-			$("#score1").html(returnScore(1)).append("/" + returnWickets(1));
-			$("#score2").html(returnScore(2)).append("/" + returnWickets(2));
-			$( "#team1" ).html( team1 );
-			$( "#team2" ).html( team2 );
-			$("#overs1").html(scoreboard.firstInning.overs.bowledOvers);
-			$("#overs2").html(scoreboard.secondInning.overs.bowledOvers);
-			if (scoreboard.activeInning.firstInning == true) { 
-				$("#scorediv2").hide();
-			};
-			if (scoreboard.activeInning.firstInning == false) { 
-				$("#scorediv2").show();
-			};
+				$( "#title" ).html( teamA + " vs " + teamB );
+				$( "#match_status" ).html( match_status );
+				$( "#toss" ).html( toss_won );
+				$( "#toss_decision" ).html( toss_decision );
+				$("#score1").html(returnScore(1)).append("/" + returnWickets(1));
+				$("#score2").html(returnScore(2)).append("/" + returnWickets(2));
+				$( ".team1name" ).html( team1 );
+				$( ".team2name" ).html( team2 );
+				$("#overs1").html(scoreboard.firstInning.overs.bowledOvers);
+				$("#overs2").html(scoreboard.secondInning.overs.bowledOvers);
+				if (scoreboard.activeInning.firstInning == true) { 
+					$("#scorediv2").hide();
+				};
+				if (scoreboard.activeInning.firstInning == false) { 
+					$("#scorediv2").show();
+				};
+
+				var team1board = "";
+				var team2board = "";
+
+				$.each(scoreboard.firstInning.batsman, function( playerr, obj ) {
+					if (obj.onStrick==true) {var strike = "*";} else {var strike = ""};
+					if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
+					team1board = team1board.concat(
+						"<hr>"+strike+"<small>" + obj.name + "</small> " +
+						" <span class='h3'>" + ReturnBatsmanRuns(obj.name,1) + "</span> " +
+						" (" + ReturnBatsmanBalls(obj.name,1) + ")<br>"+
+						"<small class='out'>" + obj.out + "</small>"
+					);
+				});
+				$.each(scoreboard.secondInning.batsman, function( playerr, obj ) {
+					if (obj.onStrick==true) {var strike = "*";} else {var strike = ""};
+					if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
+					team2board = team2board.concat(
+						"<hr>"+strike+"<small>" + obj.name + "</small> " +
+						" <span class='h3'>" + ReturnBatsmanRuns(obj.name,2) + "</span> " +
+						" (" + ReturnBatsmanBalls(obj.name,2) + ")<br>"+
+						"<small class='out'>" + obj.out + "</small>"
+					);
+				});
+				
+				$( "#scorecard1" ).html(team1board);
+				$( "#scorecard2" ).html(team2board);
+
 			    
 			}, "json" );
 		}
@@ -159,6 +215,44 @@
 				}
 			})
 			return wickets;
+		}
+
+		var ReturnBatsmanRuns = function(bName,inng){ //add valid check
+			var runs = 0;
+			if (inng == 1 ) {inng = scoreboard.firstInning;} else{inng = scoreboard.secondInning};
+			$.each(inng.bowls.overs,function(indx,itm){
+				$.each(itm.ball,function(index,item){
+				if(item.batsman == bName){
+					if(item.score){
+						if(item.ballType){
+							if(item.ballType != 'Wide'){
+								if(!item.ballPlayedType){
+									runs =  parseInt(runs) + parseInt(item.score) - 1;
+								}
+							}
+						}else if(!item.ballPlayedType){
+							runs =  parseInt(runs) + parseInt(item.score);
+						}
+					}
+				}
+				});
+			});
+			return runs;	
+		}
+
+		var ReturnBatsmanBalls = function(bName,inng){ //add valid check
+			var balls = 0;
+			if (inng == 1 ) {inng = scoreboard.firstInning;} else{inng = scoreboard.secondInning};
+			$.each(inng.bowls.overs,function(indx,itm){
+				$.each(itm.ball,function(index,item){
+					if(item.batsman == bName){
+						if(!item.ballType || (item.ballType && item.ballType != 'Wide')){
+							balls = balls + parseInt(1);
+						}
+					}
+				});
+			});
+			return balls;
 		}
 
 		$( document ).ready(function() {
