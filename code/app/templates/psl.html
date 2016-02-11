@@ -114,7 +114,7 @@
 		<script type="text/javascript">
 		var scoreboard, teamA, teamB, toss_won, toss_decision, match_status, team1, team2;
 		function loadScoreboard(){
-		  $.get( "test.json", function( data ) { //http://psl-scoring.azurewebsites.net/
+		  $.get( "http://psl-scoring.azurewebsites.net/", function( data ) { //http://psl-scoring.azurewebsites.net/
 				scoreboard = data.scoreboard;
 				window.match = scoreboard;
 				teamA = scoreboard.TeamAName;
