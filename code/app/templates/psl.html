@@ -107,92 +107,92 @@
 		<script type="text/javascript">
 		var scoreboard, teamA, teamB, toss_won, toss_decision, match_status, team1, team2;
 		function loadScoreboard(){
-			$.get( "http://psl-scoring.azurewebsites.net/")
-				.success(function( data ) { //http://psl-scoring.azurewebsites.net/
-					scoreboard = data.scoreboard;
-					window.match = scoreboard;
+		  $.get( "http://psl-scoring.azurewebsites.net/", function( data ) { //http://psl-scoring.azurewebsites.net/
+				scoreboard = data.scoreboard;
+				window.match = scoreboard;
+				teamA = scoreboard.TeamAName;
+				teamB = scoreboard.TeamBName;
+				toss_won = scoreboard.toss.wonBy;
+				
+				if (data == 'no results') {
+					$(".toss, #match_status, .score").hide();
+				};
+
+
+				if (scoreboard.toss.wonAction.Batting == true ) {
+					toss_decision = "Bat";
+					if (toss_won == 'teamA') {team1 = teamA;team2=teamB;}
+					else {team1 = teamB;team2=teamA;};
+				} else{
+					toss_decision = "Bowl";
+					if (toss_won == 'teamA') {team1 = teamB;team2=teamA;}
+					else {team1 = teamA;team2=teamB;};
+				};
+				
+				match_status = data.match_status;
+				if (match_status=="active") {match_status="● Live";};
+
+				if (toss_won == "TeamA") {
+					toss_won = teamA;
+				} else{
+					toss_won = teamB;
+				};
+
+				$( "#title" ).html( teamA + " vs " + teamB );
+				$( "#match_status" ).html( match_status );
+				$( "#toss" ).html( toss_won );
+				$( "#toss_decision" ).html( toss_decision );
+				$("#score1").html(returnScore(1)).append("/" + returnWickets(1));
+				$("#score2").html(returnScore(2)).append("/" + returnWickets(2));
+				$( ".team1name" ).html( team1 );
+				$( ".team2name" ).html( team2 );
+				$("#overs1").html(scoreboard.firstInning.overs.bowledOvers);
+				$("#overs2").html(scoreboard.secondInning.overs.bowledOvers);
+				if (scoreboard.activeInning.firstInning == true) { 
 					
-					if (data !== 'no results') {
-						teamA = scoreboard.TeamAName;
-						teamB = scoreboard.TeamBName;
-						toss_won = scoreboard.toss.wonBy;
-					} else {
-						$(".toss, #match_status, .score").hide();
-						return;
-					};
-
-					if (scoreboard.toss.wonAction.Batting == true ) {
-						toss_decision = "Bat";
-						if (toss_won == 'teamA') {team1 = teamA;team2=teamB;}
-						else {team1 = teamB;team2=teamA;};
-					} else{
-						toss_decision = "Bowl";
-						if (toss_won == 'teamA') {team1 = teamB;team2=teamA;}
-						else {team1 = teamA;team2=teamB;};
-					};
+				};
+				if (scoreboard.activeInning.firstInning == false) { 
 					
-					match_status = data.match_status;
-					if (match_status=="active") {match_status="● Live";};
+				};
 
-					if (toss_won == "TeamA") {
-						toss_won = teamA;
-					} else{
-						toss_won = teamB;
-					};
+				var team1board = "";
+				var team2board = "";
 
-					$( "#title" ).html( teamA + " vs " + teamB );
-					$( "#match_status" ).html( match_status );
-					$( "#toss" ).html( toss_won );
-					$( "#toss_decision" ).html( toss_decision );
-					$("#score1").html(returnScore(1)).append("/" + returnWickets(1));
-					$("#score2").html(returnScore(2)).append("/" + returnWickets(2));
-					$( ".team1name" ).html( team1 );
-					$( ".team2name" ).html( team2 );
-					$("#overs1").html(scoreboard.firstInning.overs.bowledOvers);
-					$("#overs2").html(scoreboard.secondInning.overs.bowledOvers);
-					if (scoreboard.activeInning.firstInning == true) { 
-						$("#scorediv2").hide();
-					};
-					if (scoreboard.activeInning.firstInning == false) { 
-						$("#scorediv2").show();
-					};
+				$.each(scoreboard.firstInning.batsman, function( playerr, obj ) {
+					if (obj.onStrick==true) {var strike = "<span class='red'>● </span>";} else {var strike = ""};
+					if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
+					if (ReturnBatsmanBalls(obj.name,1) >= 1 && obj.out == "&nbsp;") {obj.out = "not out"};
+					var runs = ReturnBatsmanRuns(obj.name,1);
+					if (runs==0) { runs = '';};
 
-					var team1board = "";
-					var team2board = "";
-
-					$.each(scoreboard.firstInning.batsman, function( playerr, obj ) {
-						if (obj.onStrick==true) {var strike = "<span class='red'>● </span>";} else {var strike = ""};
-						if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
-						if (ReturnBatsmanBalls(obj.name,1) >= 1 && obj.out == "&nbsp;") {obj.out = "not out"};
-
-						team1board = team1board.concat(
-							"<hr>"+strike+"<small>" + obj.name + "</small> " +
-							" <span class='h3'>" + ReturnBatsmanRuns(obj.name,1) + "</span> " +
-							" <small>(" + ReturnBatsmanBalls(obj.name,1) + ")</small><br>"+
-							"<small class='out'>" + obj.out + "</small>"
-						);
-					});
-					$.each(scoreboard.secondInning.batsman, function( playerr, obj ) {
-						if (obj.onStrick==true) {var strike = "<span class='red'>● </span>";} else {var strike = ""};
-						if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
-						if (ReturnBatsmanBalls(obj.name,2) >= 1 && obj.out == "&nbsp;") {obj.out = "not out"};
-
-						team2board = team2board.concat(
-							"<hr>"+strike+"<small>" + obj.name + "</small> " +
-							" <span class='h3'>" + ReturnBatsmanRuns(obj.name,2) + "</span> " +
-							" <small>(" + ReturnBatsmanBalls(obj.name,2) + ")</small><br>"+
-							"<small class='out'>" + obj.out + "</small>"
-						);
-					});
-					
-					$( "#scorecard1" ).html(team1board);
-					$( "#scorecard2" ).html(team2board);
-   
-				}, "json" )
-				.error(function(jqXHR, textStatus, errorThrown) {
-
+					team1board = team1board.concat(
+						"<hr>"+strike+"<small>" + obj.name + "</small> " +
+						" <span class='h3'>" + runs + "</span> " +
+						" <small>(" + ReturnBatsmanBalls(obj.name,1) + ")</small><br>"+
+						"<small class='out'>" + obj.out + "</small>"
+					);
 				});
-		};
+				$.each(scoreboard.secondInning.batsman, function( playerr, obj ) {
+					if (obj.onStrick==true) {var strike = "<span class='red'>● </span>";} else {var strike = ""};
+					if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
+					if (ReturnBatsmanBalls(obj.name,2) >= 1 && obj.out == "&nbsp;") {obj.out = "not out"};
+					var runs = ReturnBatsmanRuns(obj.name,2);
+					if (runs==0) { runs = '';};
+
+					team2board = team2board.concat(
+						"<hr>"+strike+"<small>" + obj.name + "</small> " +
+						" <span class='h3'>" + runs + "</span> " +
+						" <small>(" + ReturnBatsmanBalls(obj.name,2) + ")</small><br>"+
+						"<small class='out'>" + obj.out + "</small>"
+					);
+				});
+				
+				$( "#scorecard1" ).html(team1board);
+				$( "#scorecard2" ).html(team2board);
+
+			    
+			}, "json" );
+		}
 
 		var returnScore = function(inng){
 			var score = 0;
