@@ -119,14 +119,26 @@
 				};
 
 
-				if (scoreboard.toss.wonAction.Batting == true ) {
-					toss_decision = "Bat";
-					if (toss_won == 'teamA') {team1 = teamA;team2=teamB;}
-					else {team1 = teamB;team2=teamA;};
-				} else{
-					toss_decision = "Bowl";
-					if (toss_won == 'teamA') {team1 = teamB;team2=teamA;}
-					else {team1 = teamA;team2=teamB;};
+				if ( toss_won == "TeamA" ) {
+					if (scoreboard.toss.wonAction.Batting == true) {
+						toss_decision = "Bat";
+						team1 = teamA;
+						team2 = teamB;
+					} else {
+						toss_decision = "Bowl";
+						team1 = teamB;
+						team2 = teamA;
+					};
+				} else {
+					if (scoreboard.toss.wonAction.Batting == true) {
+						toss_decision = "Bat";
+						team1 = teamB;
+						team2 = teamA;
+					} else {
+						toss_decision = "Bowl";
+						team1 = teamA;
+						team2 = teamB;
+					};
 				};
 				
 				match_status = data.match_status;
