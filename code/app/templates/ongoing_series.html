@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Ongoing Series | Score@Dailypakistan{% endblock %}
+
+{% block content %}
+	<header id="header" class="upcoming_matches">
+		<h1>Ongoing Series</h1>
+	</header><!-- /header -->
+	{% for series in serieses %}
+	<article class="match">
+		<h3>
+			{% for team in series.teams %}
+				{{ team.Name }}{% if loop.index == 1 %} <strong>vs</strong> {% endif %}
+			{% endfor %}
+		</h3>
+		<span class="series_name">{{series.name}}</span><br>
+	</article>
+	{% endfor %}
+{% endblock %}

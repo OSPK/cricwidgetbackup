@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+export DEBIAN_FRONTEND=noninteractive
+
+installpkg(){
+    dpkg-query --status $1 >/dev/null || apt-get install -y $1
+}
+
+apt-get update
+installpkg python-pip
+installpkg python-dev
+installpkg nginx
+installpkg redis-server
+installpkg git
+pip install virtualenv
+
+sudo rm /etc/nginx/sites-available/default
+
+useradd -G www-data vagrant
+usermod -a -G www-data vagrant
+
+cp /tmp/default /etc/nginx/sites-available
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
+cp /tmp/crico.conf /etc/init/crico.conf
+cd /vagrant/ && virtualenv .env && . .env/bin/activate && pip install -r requirements.txt
+
+sudo service nginx restart
+sudo start crico
+
+
+# populate_db() {
+#     /tmp/populate_db 10000000| mysql -u root samtt
+# }
+# populate_db

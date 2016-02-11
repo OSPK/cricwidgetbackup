@@ -1,0 +1,238 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700,400);
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 2.4em;
+}
+
+h2 {
+    font-size: 2.0em;
+}
+
+h3 {
+    font-size: 1.8em;
+}
+
+p {
+    font-size: 1.4em;
+}
+
+li {
+    font-size: 1.4em;
+}
+
+.nano .nano-content {}
+.nano .nano-pane   { background: #888; }
+.nano .nano-slider { background: #111; }
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+    margin-top: 0.7em;
+    margin-bottom: 0.4em;
+    font-weight:700;
+}
+
+li li,
+li p {
+    font-size: 1em;
+}
+
+.center {
+    margin: 0px auto;
+}
+
+thead tr {
+    background: #3D3D66;
+    color: #FFF;
+}
+
+tbody tr:nth-child(odd) {
+    background: #DFDFDF;
+}
+
+tbody tr:nth-child(even) {
+    background: #C4CCD2;
+}
+
+th:nth-child(even),
+td:nth-child(even),
+th:last-child,
+td:last-child {
+    text-align: right;
+}
+
+tbody tr.total,
+tbody tr.total:hover {
+    background: #37667E;
+    color: #FFF;
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #efefef;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+    padding-right: 1em!important;
+    padding-left: 1em!important;
+}
+
+article.match {
+    background-color: #90E2B4;
+    padding: 0.2em 1em 1em 1.5em;
+    border: 1em solid #417180;
+}
+
+header {
+    height: 100%;
+    text-align: center;
+    background-color: #333;
+    background: url('/static/img/cricket.png');
+    background-size: cover;
+    color: #FFF;
+    text-shadow: 0px 1px 0 #E2E2E2, 0px 2px 0 #A9A9A9, 0px 3px 0 #666, 0px 0px 0px rgba(0, 0, 0, 0), -4px 4px 6px #939393;
+    margin-top: -0em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+header.ongoing_match {
+    text-shadow: 1px 1px 1px #000;
+}
+
+header h1 {
+    font-size: 2.8em;
+}
+
+img.stadium {
+    border-radius: 50px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.45);
+}
+.top_score {
+    padding-top: 1em;
+    background: #CA2C2C;
+    color: #FFF;
+    padding-bottom: 0.5em;
+    margin-bottom:1em;
+}
+
+.toss {
+    font-size: 0.8em;
+    color: #CA2C2C;
+    text-shadow: 1px 1px 1px transparent;
+    background: white;
+    border-radius: 0.2em;
+    padding: 0.2em 0.4em;
+}
+
+.match_status {
+    background-color: #CA2C2C;
+    color: #FFF;
+    padding: 0.5em;
+    font-size: 0.7em;
+    font-weight: bold;
+    border-radius: 5px;
+    position: fixed;
+    top: 2px;
+    left: 2px;
+    z-index: 9;
+}
+
+.match_score {
+    font-size: 2em;
+    margin-bottom: 0em;
+}
+.match_score.small {
+    font-size: 1.2em;
+}
+
+.match_result {
+    background-color: #D7B45A;
+    color: #242424;
+    padding: 0.5em;
+    font-size: 1.5em;
+}
+
+.match_day {
+    position: fixed;
+    left: 2px;
+    top: 35px;
+    padding: 0.3em;
+    font-size: 0.8em;
+    background-color: #57B032;
+    color: #FFF;
+    border-radius: 5px;
+    z-index: 9;
+}
+
+
+/*==========  Non-Mobile First Method  ==========*/
+
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width: 1200px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+
+/* Medium Devices, Desktops */
+
+@media only screen and (max-width: 992px) {
+    body {
+        font-size: 13px;
+    }
+}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 480px) {
+    body {
+        font-size: 11px;
+    }
+}
+
+
+/* Custom, iPhone Retina */
+
+@media only screen and (max-width: 320px) {
+    body {
+        font-size: 10px;
+    }
+}

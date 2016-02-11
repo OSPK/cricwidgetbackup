@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block navbar %}{% endblock %}
+{% block title %}Short Scorecard - {{mid}} | Score@Dailypakistan{% endblock %}
+
+{% block content %}
+	<header class="text-center ongoing_match">
+		<img class="img-responsive center stadium" src="{{scorecard.place.Gimaget}}" alt=""><br>
+			{% for team in scorecard.teams %}
+				{% if loop.index == 1 %}
+					<img src="{{team.flag.roundstd}}" alt="">
+				{% endif %}
+					<span class="h3">{{team.fn}}</span>
+					{% if loop.index == 1 %}
+						<strong>vs</strong>
+					{% endif %}
+				{% if loop.index == 2 %}
+					<img src="{{team.flag.roundstd}}" alt="">
+				{% endif %}
+			{% endfor %}<br>
+		<p class="small">{{scorecard.series.series_name}}</p>
+		<p class="small">{{scorecard.place.stadium}}, {{scorecard.place.country}}</p>
+		{% if scorecard.toss.win %}<span class="toss">{{team(scorecard, scorecard.toss.win)}} won the toss and elected to {% if scorecard.toss.bat == '1' %}bat{% else %}field{% endif %}</span><br>{% endif %}
+	</header>
+	{% if not notstarted %}
+		{% for ings in scorecard.past_ings %}
+				{% if loop.index == 1 %}
+					<div class="top_score text-center">
+						{% if ings.s.dm %}<span class="match_day">{{ings.s.dm}}</span>{% endif %}
+						{% if ings.s.d %}<p class="match_status">{{ings.s.d}}</p>{% endif %}
+						<p class="match_score">{{team(scorecard, ings.s.a.i)}}: {{ings.s.a.r}}/{{ings.s.a.w}} ({{ings.s.a.o}})</p>
+						{% if ings.s.a.cr %}<p class="small">Run Rate {{ings.s.a.cr}}{% endif %}</small>{% if ings.s.a.rr %} | <small>Required Rate {{ings.s.a.rr}}</p>{% endif %}
+						{% if ings.s.a.tl %}
+							{{team(scorecard, ings.s.a.i)}} 
+							{{ings.s.a.tl}}
+						{% endif %}
+						{% if ings.s.a.tg %}
+							{{team(scorecard, ings.s.a.i)}} 
+							need {{ings.s.a.tg}} to win
+						{% endif %}
+						
+						{% if scorecard.past_ings.s == none %}				
+							{% if scorecard.past_ings[1].s.a.i %}
+								<p class="match_score small">{{team(scorecard, scorecard.past_ings[1].s.a.i)}}: {{scorecard.past_ings[1].s.a.r}}/{{scorecard.past_ings[1].s.a.w}} ({{scorecard.past_ings[1].s.a.o}})</p>
+							{% endif %}
+						{%endif%}
+						
+						
+						{% if scorecard.result %}
+							<p class="match_result">
+							{% if scorecard.result.winner=='0' %}
+								Match Drawn
+							{% else %}
+								{{team(scorecard, scorecard.result.winner)}} win by {{scorecard.result.by}} {{scorecard.result.how}}
+							{% endif %}
+								{% if scorecard.result.mom %}
+									<br><small>Man of the match: {{scorecard.result.mom.fn}}</small>
+								{% endif %}
+							</p>
+						{% endif %}
+					</div>
+				{% endif %}			
+			<br>
+		{% endfor %}		
+	{% else %}
+		{% for ms in matches %}
+			{% if ms.matchid == scorecard.mid %}
+				<h1 class="text-center">Match begins at <em class="text-danger">{{ms.StartDate|datetime}}</em> PST</h1>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+
+{% block footer_scripts %}
+<script language="javascript" type="text/javascript">
+var timeout = setInterval(reloadScore, 15000);    
+function reloadScore () {
+		var loc = location.href+" #container>*"
+     $('#container').load(loc);
+}
+</script>
+{% endblock %}

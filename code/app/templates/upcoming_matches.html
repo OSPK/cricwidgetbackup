@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Upcoming Matches | Score@Dailypakistan{% endblock %}
+
+{% block content %}
+	<header id="header" class="upcoming_matches">
+		<h1>Upcoming Matches</h1>
+	</header><!-- /header -->
+	{% for match in matches %}
+		<article class="match">
+			<h3>
+				{% for team in match.Team %}
+					{{team.Team}}{% if loop.index == 1 %} <strong>vs</strong> {% endif %}
+				{% endfor %}
+			</h3>
+			<small>{{match.StartDate|datetime}} - {{match.Venue.content}}</small><br>
+			<span class="series_name">{{match.series_name}}</span>
+			<br>
+			<div class="pull-right">
+			<button type="button" class="btn btn-link btn-xs" data-toggle="modal" data-target="#embed{{match.matchid}}"><></button>
+			<div class="modal fade" id="embed{{match.matchid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      </div>
+			      <div class="modal-body">
+			        <textarea rows="5" style="width:100%"><iframe style="width:100%;" height="550" src="http://score.dailypakistan.com.pk/match/{{match.matchid}}" frameborder="0"></iframe></textarea>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+
+		</article>
+	{% endfor %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#emsmall">Embed Widget</button>
+
+<!-- Modal -->
+<div class="modal fade" id="emsmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <textarea rows="5" style="width:100%"><iframe style="width:100%;" height="260" src="http://score.dailypakistan.com.pk/ongoing_matches" frameborder="0"></iframe></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
