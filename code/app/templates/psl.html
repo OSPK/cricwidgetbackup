@@ -119,7 +119,14 @@
 				window.match = scoreboard;
 				teamA = scoreboard.TeamAName;
 				teamB = scoreboard.TeamBName;
-				toss_won = scoreboard.toss.wonBy;
+				
+				if (typeof(scoreboard.toss) === 'undefined') {
+					$(".toss, #match_status, .score, .scorecard").hide();
+					return;
+				} else {
+					toss_won = scoreboard.toss.wonBy;
+				};
+
 				if (scoreboard.toss.wonAction.Batting == true ) {
 					toss_decision = "Bat";
 					if (toss_won == 'teamA') {team1 = teamA;team2=teamB;}
