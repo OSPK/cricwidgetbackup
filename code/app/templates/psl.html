@@ -75,6 +75,9 @@
 				margin-top:5px;
 				margin-bottom: 5px;
 			}
+			.red {
+				color: red;
+			}
 		</style>
 	</head>
 	<body>
@@ -90,7 +93,7 @@
 					<div class="col-md-6 col-sm-6 col-xs-6 scorecard">
 						<span class="team1name h3"></span>
 						<span id="scorediv1">
-							&nbsp;<span class="scr" id="score1"></span> (<span id="overs1"></span>)
+							&nbsp;<span class="scr" id="score1"></span> (<span id="overs1"></span> overs)
 						</span>
 						<div id="scorecard1"></div>
 						<br>
@@ -98,7 +101,7 @@
 					<div class="col-md-6 col-sm-6 col-xs-6 scorecard two">
 						<span class="team2name h3"></span>
 						<span id="scorediv2">
-							&nbsp;<span class="scr" id="score2"></span> (<span id="overs2"></span>)
+							&nbsp;<span class="scr" id="score2"></span> (<span id="overs2"></span> overs)
 						</span>
 						<div id="scorecard2"></div>
 						<br>
@@ -168,22 +171,26 @@
 				var team2board = "";
 
 				$.each(scoreboard.firstInning.batsman, function( playerr, obj ) {
-					if (obj.onStrick==true) {var strike = "*";} else {var strike = ""};
+					if (obj.onStrick==true) {var strike = "<span class='red'>● </span>";} else {var strike = ""};
 					if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
+					if (ReturnBatsmanBalls(obj.name,1) >= 1 && obj.out == "&nbsp;") {obj.out = "not out"};
+
 					team1board = team1board.concat(
 						"<hr>"+strike+"<small>" + obj.name + "</small> " +
 						" <span class='h3'>" + ReturnBatsmanRuns(obj.name,1) + "</span> " +
-						" (" + ReturnBatsmanBalls(obj.name,1) + ")<br>"+
+						" <small>(" + ReturnBatsmanBalls(obj.name,1) + ")</small><br>"+
 						"<small class='out'>" + obj.out + "</small>"
 					);
 				});
 				$.each(scoreboard.secondInning.batsman, function( playerr, obj ) {
-					if (obj.onStrick==true) {var strike = "*";} else {var strike = ""};
+					if (obj.onStrick==true) {var strike = "<span class='red'>● </span>";} else {var strike = ""};
 					if (typeof(obj.out) === 'undefined') {obj.out = "&nbsp;";};
+					if (ReturnBatsmanBalls(obj.name,2) >= 1 && obj.out == "&nbsp;") {obj.out = "not out"};
+
 					team2board = team2board.concat(
 						"<hr>"+strike+"<small>" + obj.name + "</small> " +
 						" <span class='h3'>" + ReturnBatsmanRuns(obj.name,2) + "</span> " +
-						" (" + ReturnBatsmanBalls(obj.name,2) + ")<br>"+
+						" <small>(" + ReturnBatsmanBalls(obj.name,2) + ")</small><br>"+
 						"<small class='out'>" + obj.out + "</small>"
 					);
 				});
