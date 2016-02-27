@@ -10,7 +10,7 @@ import time
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from random import random
-
+import requests
 
 app.jinja_env.globals.update(random=random)
 # ======================================================= Jobs and Cron and Such
@@ -57,10 +57,12 @@ def appify(template, **kwargs):
     else:
         return render_template(template, **kwargs)
 
+
 @cache.memoize(50)
 def getresponse(turl):
-    response = urllib.urlopen(turl)
-    return json.load(response)
+    # response = urllib.urlopen(turl)
+    response = requests.get(turl)
+    return json.loads(response.text)
 
 
 def has_no_empty_params(rule):
