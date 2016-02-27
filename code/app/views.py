@@ -9,19 +9,21 @@ import datetime
 import time
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
+from random import random
 
 
+app.jinja_env.globals.update(random=random)
 # ======================================================= Jobs and Cron and Such
 
 
 def del_cache():
     # Do your work here
-    cache.delete_memoized(getresponse)
-    print "cache deleted"
+   cache.delete_memoized(getresponse)
+   print "cache deleted"
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(del_cache, 'interval', id='del_cache', seconds=5)
+scheduler.add_job(del_cache, 'interval', id='del_cache', seconds=15)
 scheduler.start()
 
 
@@ -44,7 +46,7 @@ def goodbye():
 
 
 def yquery(query):
-    base_url = "https://query.yahooapis.com/v1/public/yql?q="
+    base_url = "http://query.yahooapis.com/v1/public/yql?q="
     end_url = "&format=json&env=store%3A%2F%2F0TxIGQMQbObzvU4Apia0V0"
     return base_url + query + end_url
 
@@ -55,8 +57,7 @@ def appify(template, **kwargs):
     else:
         return render_template(template, **kwargs)
 
-
-@cache.memoize(timeout=5)
+@cache.memoize(50)
 def getresponse(turl):
     response = urllib.urlopen(turl)
     return json.load(response)

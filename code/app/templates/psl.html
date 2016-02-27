@@ -157,10 +157,13 @@
 
 		<script type="text/javascript">
 		var scoreboard, teamA, teamB, toss_won, toss_decision, match_status, team1, team2;
+
 		function loadScoreboard(){
-		  $.get( "http://psl-scoring.azurewebsites.net/", function( data ) { //http://psl-scoring.azurewebsites.net/
+			$.get( "/static/json.json?"+Math.random(), function( data ) {
+				// console.log(data);
 				scoreboard = jQuery.parseJSON(data.scoreboard);
-				window.match = scoreboard;
+				window.match = scoreboard; // jQuery.parseJSON
+				console.log(scoreboard);
 				teamA = scoreboard.TeamAName;
 				teamB = scoreboard.TeamBName;
 				toss_won = scoreboard.toss.wonBy;
@@ -254,7 +257,7 @@
 				$( "#scorecard2" ).html(team2board);
 
 			    
-			}, "json" );
+			}, "json");
 		}
 
 		var returnScore = function(inng){
