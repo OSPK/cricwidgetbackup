@@ -260,7 +260,7 @@ def pakind_submit():
     }}""".format(ps=pakstatus, psc=pakscore, po=pakovers, iis=indstatus, isc=indscore, io=indovers)
 
 
-    with open('code/app/static/pakind.json', 'w') as file:
+    with open('/vagrant/code/app/static/pakind.json', 'w') as file:
         file.write(board)
 
     return redirect(url_for('pakind_update'))
