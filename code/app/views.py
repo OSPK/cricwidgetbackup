@@ -235,9 +235,32 @@ def pakind_update():
     return render_template("pakind-update.html")
 
 
-@app.route("/pakind_submit")
+@app.route("/pakind_submit", methods=['POST'])
 @basic_auth.required
 def pakind_submit():
+    pakscore = str(request.form.get('pakscore'))
+    pakovers = str(request.form.get('pakovers'))
+    pakstatus = str(request.form.get('pakstatus'))
+
+    indscore = str(request.form.get('indscore'))
+    indovers = str(request.form.get('indovers'))
+    indstatus = str(request.form.get('indstatus'))
+
+    board = """{{
+        "Pakistan": {{
+            "status":"{ps}",
+            "score":"{psc}",
+            "overs":"{po}"
+        }},
+        "India": {{
+            "status":"{iis}",
+            "score":"{isc}",
+            "overs":"{io}"
+        }}
+    }}""".format(ps=pakstatus, psc=pakscore, po=pakovers, iis=indstatus, isc=indscore, io=indovers)
+
+
     with open('code/app/static/pakind.json', 'w') as file:
-        file.write("test")
-    return "{'done':true}"
+        file.write(board)
+
+    return redirect(url_for('pakind_update'))

@@ -98,11 +98,15 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
+
     function loadScoreboard() {
-        $.get("/static/pakind.json", function(data, status) {
+        var random = Math.random();
+        random = random.toString();
+
+        $.get("/static/pakind.json?"+random, function(data, status) {
             var score = data;
-            var pak = score.pakistan;
-            var ind = score.india;
+            var pak = score.Pakistan;
+            var ind = score.India;
             if (pak.score=="" && ind.score=="") {
             	pak.score = "...";
             	ind.score = "...";
@@ -117,11 +121,11 @@
             	$("#pakscore").css("font-size", "50%");
             };
 
-            $("#pakstatus").attr("src", pak.status + ".png");
+            $("#pakstatus").attr("src", "/static/img/" + pak.status + ".png");
             $("#pakscore").html(pak.score);
             $("#pakovers").html(pak.overs);
 
-            $("#indstatus").attr("src", ind.status + ".png");
+            $("#indstatus").attr("src", "/static/img/" + ind.status + ".png");
             $("#indscore").html(ind.score);
             $("#indovers").html(ind.overs);
         });

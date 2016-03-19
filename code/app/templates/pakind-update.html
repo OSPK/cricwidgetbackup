@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html lang="">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Pakistan vs India</title>
 
-	</head>
-	<body>
-		<form action="pakind_submit" method="post" accept-charset="utf-8">
-			<input name="" type="text">
-		</form>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pakistan vs India</title>
+</head>
+
+<body>
+    <form action="pakind_submit" method="post" accept-charset="utf-8">
+        <h1>Pakistan</h1> Status
+        <input id="pakstatus" name="pakstatus" type="text">
+        <br> Score
+        <input id="pakscore" name="pakscore" type="text">
+        <br> Overs
+        <input id="pakovers" name="pakovers" type="text">
+        <br>
+        <h1>India</h1> Status
+        <input id="indstatus" name="indstatus" type="text">
+        <br> Score
+        <input id="indscore" name="indscore" type="text">
+        <br> Overs
+        <input id="indovers" name="indovers" type="text">
+        <br>
+        <button type="submit">Update</button>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+    function loadScoreboard() {
+        var random = Math.random();
+        random = random.toString();
+
+        $.get("/static/pakind.json?" + random, function(data, status) {
+            var score = data;
+            var pak = score.Pakistan;
+            var ind = score.India;
+            if (pak.score == "" && ind.score == "") {
+                pak.score = "...";
+                ind.score = "...";
+                $("#pakscore, #indscore").css("font-size", "50%");
+            };
+            if (ind.score == "") {
+                ind.score = "bowling...";
+                $("#indscore").css("font-size", "50%");
+            };
+            if (pak.score == "") {
+                pak.score = "bowling...";
+                $("#pakscore").css("font-size", "50%");
+            };
+
+            $("#pakstatus").val(pak.status);
+            $("#pakscore").val(pak.score);
+            $("#pakovers").val(pak.overs);
+
+            $("#indstatus").val(ind.status);
+            $("#indscore").val(ind.score);
+            $("#indovers").val(ind.overs);
+        });
+    };
+
+    $(document).ready(function() {
+        loadScoreboard();
+    });
+    </script>
+</body>
+
 </html>
