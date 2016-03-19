@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>T20 World Cup 2016 - Pakistan vs India</title>
+    <style>
+    body {
+        width: 100%;
+        font-size: 16px;
+        overflow-x: hidden;
+    }
+    .container {
+    	padding:20px;
+    }
+    #pakstatus,
+    #indstatus {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .overs {
+        color: #777;
+        font-size: 80%;
+    }
+    .score {
+    	font-size:120%;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .ref {
+    	height:20px;
+    	width:100%;
+    	position: fixed;
+    	top:0px;
+    	left:0px;
+    	background:skyblue;
+    	margin:auto;
+    	text-align: center;
+    	font-size:1em;
+    	line-height: 1.7em;
+    }
+    /* Large Devices, Wide Screens */
+    
+    @media only screen and (max-width: 1200px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    /* Medium Devices, Desktops */
+    
+    @media only screen and (max-width: 992px) {
+        body {
+            font-size: 15px;
+        }
+    }
+    /* Small Devices, Tablets */
+    
+    @media only screen and (max-width: 768px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    /* Extra Small Devices, Phones */
+    
+    @media only screen and (max-width: 480px) {
+        body {
+            font-size: 12px;
+        }
+    }
+    /* Custom, iPhone Retina */
+    
+    @media only screen and (max-width: 320px) {}
+    </style>
+</head>
+
+<body>
+	<div class="ref">Score updates automatically</div>
+	<div class="container">
+		<h1>
+		    <img class="status" id="pakstatus" src="" alt="">
+		    <span class="teamname pakistan">Pakistan</span>
+		    <span class="score" id="pakscore"></span>
+		    <span class="overs" id="pakovers"></span>
+		</h1>
+
+		<h1>
+		    <img class="status" id="indstatus" src="" alt="">
+			<span class="teamname india">India</span>
+		    <span class="score" id="indscore"></span>
+		    <span class="overs" id="indovers"></span>
+		</h1>
+	</div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+    function loadScoreboard() {
+        $.get("/static/pakind.json", function(data, status) {
+            var score = data;
+            var pak = score.pakistan;
+            var ind = score.india;
+            if (pak.score=="" && ind.score=="") {
+            	pak.score = "...";
+            	ind.score = "...";
+            	$("#pakscore, #indscore").css("font-size", "50%");
+            };
+            if (ind.score=="") {
+            	ind.score = "bowling...";
+            	$("#indscore").css("font-size", "50%");
+            };
+            if (pak.score=="") {
+            	pak.score = "bowling...";
+            	$("#pakscore").css("font-size", "50%");
+            };
+
+            $("#pakstatus").attr("src", pak.status + ".png");
+            $("#pakscore").html(pak.score);
+            $("#pakovers").html(pak.overs);
+
+            $("#indstatus").attr("src", ind.status + ".png");
+            $("#indscore").html(ind.score);
+            $("#indovers").html(ind.overs);
+        });
+    };
+
+    $(document).ready(function() {
+        loadScoreboard();
+    });
+    setInterval(function() {
+        loadScoreboard()
+    }, 2000);
+    </script>
+</body>
+
+</html>

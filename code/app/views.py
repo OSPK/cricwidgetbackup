@@ -11,6 +11,14 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from random import random
 import requests
+import os
+from flask import Flask, render_template
+from flask.ext.basicauth import BasicAuth
+
+app.config['BASIC_AUTH_USERNAME'] = 'waqas'
+app.config['BASIC_AUTH_PASSWORD'] = 'dailypak123'
+
+basic_auth = BasicAuth(app)
 
 app.jinja_env.globals.update(random=random)
 # ======================================================= Jobs and Cron and Such
@@ -214,3 +222,22 @@ def match(mid):
 def delete_cache():
     cache.delete_memoized(getresponse)
     return "deleted"
+
+
+@app.route("/pakind")
+def pakind():
+    return render_template("pakind.html")
+
+
+@app.route("/update")
+@basic_auth.required
+def pakind_update():
+    return render_template("pakind-update.html")
+
+
+@app.route("/pakind_submit")
+@basic_auth.required
+def pakind_submit():
+    with open('pakind.json', 'w') as file:
+        file.write("test")
+    return "{'done':true}"
