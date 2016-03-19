@@ -9,7 +9,6 @@ app.config.from_object('config')
 # app.debug = True
 
 toolbar = DebugToolbarExtension(app)
-
 cache = Cache(app, config={
     'CACHE_TYPE': 'redis',
     'CACHE_KEY_PREFIX': 'crico-cache-',
@@ -17,6 +16,6 @@ cache = Cache(app, config={
     'CACHE_REDIS_PORT': '6379',
     'CACHE_REDIS_URL': 'redis://localhost:6379'
 })
-
+# cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 from app import views

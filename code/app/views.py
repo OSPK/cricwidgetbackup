@@ -180,6 +180,7 @@ def ongoing_matches():
     return appify('ongoing_matches.html', matches=matches)
 
 
+@cache.cached(timeout=15)
 @app.route("/match/<int:mid>/")
 def match(mid):
     url = yquery('select * from cricket.scorecard.live WHERE mid="{}"'.format(mid))
