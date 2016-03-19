@@ -238,6 +238,6 @@ def pakind_update():
 @app.route("/pakind_submit")
 @basic_auth.required
 def pakind_submit():
-    with open('pakind.json', 'w') as file:
+    with open('code/app/static/pakind.json', 'w') as file:
         file.write("test")
     return "{'done':true}"
