@@ -224,6 +224,7 @@ def delete_cache():
     return "deleted"
 
 
+@cache.cached(timeout=15)
 @app.route("/pakind")
 def pakind():
     return render_template("pakind.html")
