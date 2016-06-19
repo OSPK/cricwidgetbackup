@@ -11,16 +11,17 @@
 <body>
     <form action="pakind_submit" method="post" accept-charset="utf-8">
         <h1>Pakistan</h1> Status
-        <input autocomplete="off" id="pakstatus" name="pakstatus" type="text">
+        <input id="pakstatus" autocomplete="off" name="pakstatus" type="text">
         <br> Score
-        <input id="pakscore" autocomplete="off" name="pakscore" type="text">
+        <input id="pakscore" name="pakscore" autocomplete="off" type="text">
         <br> Overs
-        <input id="pakovers" autocomplete="off" name="pakovers" type="text">
+        <input id="pakovers" name="pakovers" autocomplete="off" type="text">
         <br>
         <h1>India</h1> Status
-        <input id="indstatus" name="indstatus" autocomplete="off" type="text">
+        <input id="indstatus" name="indstatus" type="text">
         <br> Score
-        <input id="indscore" name="indscore" autocomplete="off" type="text">
+        <input id="indscore" name="indscore" type="text" 
+>
         <br> Overs
         <input id="indovers" name="indovers" autocomplete="off" type="text">
         <br>

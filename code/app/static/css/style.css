@@ -236,3 +236,7 @@ img.stadium {
         font-size: 10px;
     }
 }
+button.btn.btn-link.btn-xs {
+    background: #292929;
+    color: #B7B7B7!important;
+}
