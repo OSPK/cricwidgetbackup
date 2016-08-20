@@ -103,10 +103,10 @@ tbody tr:hover {
 }
 
 article.match {
-    background-color: #1F2931;
     padding: 1em 0em 1em 0em;
     margin: auto;
     width: 90%;
+    text-align:center;
     border-top: 1px solid #525252;
     border-bottom: 1px solid #525252;
 }
@@ -169,9 +169,9 @@ img.stadium {
     padding-top:0.4em;
     font-size: 0.9em;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
     position: fixed;
-    top: 2px;
+    top: 0px;
     right: 13px;
     z-index: 9;
 }
@@ -203,6 +203,9 @@ img.stadium {
     z-index: 9;
 }
 
+th:nth-child(1) {
+    min-width:95px;
+}
 
 /*==========  Non-Mobile First Method  ==========*/
 
@@ -254,6 +257,6 @@ img.stadium {
     }
 }
 button.btn.btn-link.btn-xs {
-    background: #292929;
+    background: transparent;
     color: #B7B7B7!important;
 }
