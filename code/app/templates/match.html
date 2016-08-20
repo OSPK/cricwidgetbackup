@@ -6,6 +6,7 @@
 
 {% block content %}
 	<header class="text-center ongoing_match">
+		<button style="position:fixed;top:1px;left:1px;border:3px solid #ddd;background:#333;color:#ccc;box-shadow:0px 0px 3px #222;font-weight:bold;z-index:9999;" onclick="window.history.back()">←</button>
 		<img class="img-responsive center stadium" src="{{scorecard.place.Gimaget}}" alt=""><br>
 			{% for team in scorecard.teams %}
 				{% if loop.index == 1 %}
@@ -27,8 +28,7 @@
 	{% for ings in scorecard.past_ings %}
 			{% if loop.index == 1 %}
 				<div class="top_score text-center">
-					{% if ings.s.dm %}<span class="match_day">{{ings.s.dm}}</span>{% endif %}
-					{% if ings.s.d %}<p class="match_status">{{ings.s.d}}</p>{% endif %}
+					{% if ings.s.d %}<p class="match_status">{{ings.s.d}}{% if ings.s.dm %} | {{ings.s.dm}}{% endif %}</p>{% endif %}
 					<p class="match_score">{{team(scorecard, ings.s.a.i)}}: {{ings.s.a.r}}/{{ings.s.a.w}} ({{ings.s.a.o}})</p>
 					{% if ings.s.a.cr %}<p class="small">Run Rate {{ings.s.a.cr}}{% endif %}</small>{% if ings.s.a.rr %} | <small>Required Rate {{ings.s.a.rr}}</p>{% endif %}
 					{% if ings.s.a.tl %}
