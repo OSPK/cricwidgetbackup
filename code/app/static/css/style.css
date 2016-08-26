@@ -17,8 +17,8 @@ body {
     overflow-x: hidden;
 }
 
-.container {
-	margin-bottom:70px;
+#container {
+	margin-bottom:50px;
 }
 
 h1 {
