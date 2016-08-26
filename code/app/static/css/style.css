@@ -17,6 +17,10 @@ body {
     overflow-x: hidden;
 }
 
+.container {
+	margin-bottom:70px;
+}
+
 h1 {
     font-size: 2.4em;
 }
@@ -206,6 +210,17 @@ img.stadium {
 th:nth-child(1) {
     min-width:95px;
 }
+
+#div-gpt-ad-1471844181145-0 {
+    height: 50px;
+    width: 320px;
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
 
 /*==========  Non-Mobile First Method  ==========*/
 

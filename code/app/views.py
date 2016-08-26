@@ -34,7 +34,6 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(del_cache, 'interval', id='del_cache', seconds=15)
 scheduler.start()
 
-
 # ======================================================= /Jobs and Cron and Such
 
 # ======================================================= When the app exits
@@ -54,7 +53,7 @@ def goodbye():
 
 
 def yquery(query):
-    base_url = "http://query.yahooapis.com/v1/public/yql?q="
+    base_url = "https://query.yahooapis.com/v1/public/yql?q="
     end_url = "&format=json&env=store%3A%2F%2F0TxIGQMQbObzvU4Apia0V0"
     return base_url + query + end_url
 
@@ -123,7 +122,6 @@ app.jinja_env.filters['datetime'] = format_datetime
 app.jinja_env.filters['is_list'] = is_list
 app.jinja_env.globals.update(team=team, player=player, flag=flag)
 
-
 # ======================================================= /Functions
 
 # ======================================================= Routes
@@ -132,6 +130,9 @@ app.jinja_env.globals.update(team=team, player=player, flag=flag)
 @app.route("/")
 def index():
     links = []
+    user = request.args.get('user')
+    if user != "admin":
+        return redirect("/ongoing_matches")
     for rule in app.url_map.iter_rules():
         # Filter out rules we can't navigate to in a browser
         # and rules that require parameters
@@ -178,7 +179,7 @@ def ongoing_matches():
     result = getresponse(url)
     matches = result.get('query').get('results')
     if matches is None:
-        return redirect(url_for('upcoming_matches'))
+        return redirect('https://score.dailypakistan.com.pk/upcoming_matches')
     else:
         matches = result.get('query').get('results').get('Scorecard')
     if not isinstance(matches, list):
@@ -264,4 +265,4 @@ def pakind_submit():
     with open('/vagrant/code/app/static/pakind.json', 'w') as file:
         file.write(board)
 
-    return redirect(url_for('pakind_update'))
+    return redirect(url_for('pakind_update', _scheme='https'))

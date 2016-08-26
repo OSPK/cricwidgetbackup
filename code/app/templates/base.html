@@ -17,6 +17,7 @@
 		<![endif]-->
 		<link href="{{ url_for('static', filename='css/nanoscroller.css') }}" rel="stylesheet">
 		<link href="{{ url_for('static', filename='css/style.css') }}?v=2.123567" rel="stylesheet">
+		<!--GOOGLE ADS-->
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -27,6 +28,19 @@
 		  ga('send', 'pageview');
 
 		</script>
+		<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+		<script>
+		  var googletag = googletag || {};
+		  googletag.cmd = googletag.cmd || [];
+		</script>
+
+		<script>
+		  googletag.cmd.push(function() {
+		    googletag.defineSlot('/1002138/DailyPakistan_EN_320x50', [320, 50], 'div-gpt-ad-1471844181145-0').addService(googletag.pubads());
+		    googletag.pubads().enableSingleRequest();
+		    googletag.enableServices();
+		  });
+		</script>
 	</head>
 	<body class="{% block body_class %}{% endblock %} nano">
 		{% block navbar %}{% endblock %}
@@ -35,6 +49,12 @@
 					{% block content%}
 					{% endblock %}
 			</div>
+		</div>
+		<!-- /1002138/DailyPakistan_EN_320x50 -->
+		<div id='div-gpt-ad-1471844181145-0' style='height:50px; width:320px;'>
+			<script>
+				googletag.cmd.push(function() { googletag.display('div-gpt-ad-1471844181145-0'); });
+			</script>
 		</div>
 		<!-- jQuery -->
 		<script src="{{ url_for('static', filename='js/jquery-latest.js') }}"></script>
