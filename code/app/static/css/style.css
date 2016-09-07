@@ -18,7 +18,7 @@ body {
 }
 
 #container {
-	margin-bottom:50px;
+	padding-bottom:80px;
 }
 
 h1 {
@@ -212,7 +212,6 @@ th:nth-child(1) {
 }
 
 #div-gpt-ad-1471844181145-0 {
-    height: 50px;
     width: 320px;
     position: fixed;
     bottom: 0px;

@@ -65,7 +65,7 @@
 	{% else %}
 		{% for ms in matches %}
 			{% if ms.matchid == scorecard.mid %}
-				<h1 class="text-center">Match begins at <em class="text-danger">{{ms.StartDate|datetime}}</em> PST</h1>
+				<h1 class="text-center" style="color:#a3a3a3">Match begins at <em class="text-danger">{{ms.StartDate|datetime}}</em> PST</h1>
 			{% endif %}
 		{% endfor %}
 	{% endif %}
