@@ -31,7 +31,7 @@ def del_cache():
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(del_cache, 'interval', id='del_cache', seconds=15)
+scheduler.add_job(del_cache, 'interval', id='del_cache', seconds=30)
 scheduler.start()
 
 # ======================================================= /Jobs and Cron and Such
@@ -189,7 +189,7 @@ def ongoing_matches():
     return appify('ongoing_matches.html', matches=matches)
 
 
-@cache.cached(timeout=15)
+@cache.cached(timeout=30)
 @app.route("/match/<int:mid>/")
 @app.route("/match/<int:mid>")
 def match(mid):
