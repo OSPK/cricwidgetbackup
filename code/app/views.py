@@ -267,3 +267,45 @@ def pakind_submit():
         file.write(board)
 
     return redirect(url_for('pakind_update', _scheme='https'))
+
+
+@app.route("/manual")
+@basic_auth.required
+def manual():
+    return render_template("manual.html")
+
+
+@app.route("/manual_post", methods=['POST'])
+@basic_auth.required
+def manual_post():
+    aname = str(request.form.get('aname'))
+    ascore = str(request.form.get('ascore'))
+    aovers = str(request.form.get('aovers'))
+    astatus = str(request.form.get('astatus'))
+
+    bname = str(request.form.get('bname'))
+    bscore = str(request.form.get('bscore'))
+    bovers = str(request.form.get('bovers'))
+    bstatus = str(request.form.get('bstatus'))
+
+    board = """{{
+        "TeamA": {{
+            "name":"{aname}",
+            "score":"{ascore}",
+            "overs":"{aovers}",
+            "status":"{astatus}"
+        }},
+        "TeamB": {{
+            "name":"{bname}",
+            "score":"{bscore}",
+            "overs":"{bovers}",
+            "status":"{bstatus}"
+        }}
+    }}""".format(aname=aname, ascore=ascore, aovers=aovers, astatus=astatus,\
+                 bname=bname, bscore=bscore, bovers=bovers, bstatus=bstatus)
+
+
+    with open('/home/work/web/cricwidgetbackup/code/app/static/manual.json', 'w') as file:
+        file.write(board)
+
+    return redirect(url_for('manual'))

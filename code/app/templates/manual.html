@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Manual Entry</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+<body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <form id="upForm" action="/manual_post" method="POST" role="form">
+                        <h3>Team A</h3>
+                        <div class="form-group">
+                            <label for="">Team A Name</label>
+                            <input type="text" name="aname" class="form-control" id="aname" placeholder="Team Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Score</label>
+                            <input type="text" name="ascore" class="form-control" id="ascore" placeholder="Score">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Overs Played</label>
+                            <input type="text" name="aovers" class="form-control" id="aovers" placeholder="Overs Played">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Status</label>
+                            <select name="astatus" class="form-control" id="astatus" class="selectpicker">
+                              <option value="Bowling">Bowling</option>
+                              <option value="Batting">Batting</option>
+                            </select>
+                        </div><hr>
+                        <h3>Team B</h3>
+                        <div class="form-group">
+                            <label for="">Team B Name</label>
+                            <input type="text" name="bname" class="form-control" id="bname" placeholder="Team Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Score</label>
+                            <input type="text" name="bscore" class="form-control" id="bscore" placeholder="Score">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Overs Played</label>
+                            <input type="text" name="bovers" class="form-control" id="bovers" placeholder="Overs Played">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Status</label>
+                            <select name="bstatus" class="form-control" id="bstatus" class="selectpicker">
+                              <option value="Bowling">Bowling</option>
+                              <option value="Batting">Batting</option>
+                            </select>
+                        </div><br><hr>
+                        <button type="submit" class="btn btn-block btn-primary">Update</button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h4 id="stst" class="text-success"></h4>
+                </div>
+            </div>
+        </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script> 
+        $(document).ready(function() { 
+            $('#upForm').ajaxForm(function() { 
+                $('#stst').append("Updated!<br>");
+            }); 
+        }); 
+    </script> 
+    <script type="text/javascript">
+    // function loadScoreboard() {
+    //     var random = Math.random();
+    //     random = random.toString();
+
+    //     $.get("/static/manual.json?" + random, function(data, status) {
+    //         var score = data;
+    //         var pak = score.Pakistan;
+    //         var ind = score.India;
+    //         if (pak.score == "" && ind.score == "") {
+    //             pak.score = "...";
+    //             ind.score = "...";
+    //             $("#pakscore, #indscore").css("font-size", "50%");
+    //         };
+    //         if (ind.score == "") {
+    //             ind.score = "bowling...";
+    //             $("#indscore").css("font-size", "50%");
+    //         };
+    //         if (pak.score == "") {
+    //             pak.score = "bowling...";
+    //             $("#pakscore").css("font-size", "50%");
+    //         };
+
+    //         $("#pakstatus").val(pak.status);
+    //         $("#pakscore").val(pak.score);
+    //         $("#pakovers").val(pak.overs);
+
+    //         $("#indstatus").val(ind.status);
+    //         $("#indscore").val(ind.score);
+    //         $("#indovers").val(ind.overs);
+    //     });
+    // };
+
+    // $(document).ready(function() {
+    //     loadScoreboard();
+    // });
+    </script>
+</body>
+
+</html>

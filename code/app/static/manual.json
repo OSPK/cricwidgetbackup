@@ -1,0 +1,14 @@
+{
+        "TeamA": {
+            "name":"",
+            "score":"",
+            "overs":"",
+            "status":"Bowling"
+        },
+        "TeamB": {
+            "name":"",
+            "score":"",
+            "overs":"",
+            "status":"Bowling"
+        }
+    }
