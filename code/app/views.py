@@ -312,4 +312,4 @@ def manual_post():
     with open(folder+'/manual.json', 'w') as file:
         file.write(board)
 
-    return redirect(url_for('manual'))
+    return redirect(url_for('manual', _scheme='https'))
