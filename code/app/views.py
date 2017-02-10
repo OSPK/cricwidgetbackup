@@ -274,6 +274,10 @@ def pakind_submit():
 def manual():
     return render_template("manual.html")
 
+@app.route("/scoreboard")
+@basic_auth.required
+def manual_get():
+    return render_template("psl2017.html")
 
 @app.route("/manual_post", methods=['POST'])
 @basic_auth.required
@@ -304,8 +308,8 @@ def manual_post():
     }}""".format(aname=aname, ascore=ascore, aovers=aovers, astatus=astatus,\
                  bname=bname, bscore=bscore, bovers=bovers, bstatus=bstatus)
 
-
-    with open('/home/work/web/cricwidgetbackup/code/app/static/manual.json', 'w') as file:
+    folder = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'static'))
+    with open(folder+'/manual.json', 'w') as file:
         file.write(board)
 
     return redirect(url_for('manual'))
