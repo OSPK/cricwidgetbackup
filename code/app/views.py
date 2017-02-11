@@ -1,7 +1,7 @@
 from app import app
 from app import cache
 from flask import redirect, url_for, render_template, flash, request, json,\
-    jsonify, Response, escape, abort
+     jsonify, Response, escape, abort
 import urllib
 import json
 import iso8601
@@ -275,7 +275,6 @@ def manual():
     return render_template("manual.html")
 
 @app.route("/scoreboard")
-@basic_auth.required
 def manual_get():
     return render_template("psl2017.html")
 
