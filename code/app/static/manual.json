@@ -1,14 +1,14 @@
 {
         "TeamA": {
-            "name":"Karachi Kings",
-            "score":"118/7",
+            "name":"Peshawar Zalmi",
+            "score":"148/6",
             "overs":"20",
             "status":"Bowling"
         },
         "TeamB": {
-            "name":"Peshawar Zalmi",
-            "score":"119/3",
-            "overs":"18.3",
+            "name":"Quetta Gladiators",
+            "score":"90/10",
+            "overs":"16.3",
             "status":"Batting"
         }
     }
