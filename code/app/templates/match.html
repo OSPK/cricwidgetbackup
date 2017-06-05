@@ -6,7 +6,9 @@
 
 {% block content %}
 	<header class="text-center ongoing_match">
-		<button style="position:fixed;top:1px;left:1px;border:3px solid #ddd;background:#333;color:#ccc;box-shadow:0px 0px 3px #222;font-weight:bold;z-index:9999;" onclick="window.history.back()" hidden>←</button>
+		<a href="/ongoing_matches">
+			<button style="position:fixed;top:1px;left:1px;border:3px solid #ddd;background:#333;color:#ccc;box-shadow:0px 0px 3px #222;font-weight:bold;z-index:9999;">←</button>
+		</a>
 		<img class="img-responsive center stadium" src="{{scorecard.place.Gimaget}}" alt=""><br>
 			{% for team in scorecard.teams %}
 				{% if loop.index == 1 %}
