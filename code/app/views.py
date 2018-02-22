@@ -27,7 +27,7 @@ app.jinja_env.globals.update(random=random)
 def del_cache():
     # Do your work here
    cache.delete_memoized(getresponse)
-   print "cache deleted"
+#   print "cache deleted"
 
 
 scheduler = BackgroundScheduler()
