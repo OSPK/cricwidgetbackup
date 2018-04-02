@@ -167,6 +167,8 @@ def ongoing_series():
 def upcoming_matches():
     url = yquery('SELECT * FROM cricket.upcoming_matches')
     result = getresponse(url)
+    print url
+    print result
     matches = result['query']['results']['Match']
 
     return appify('upcoming_matches.html', matches=matches)
